@@ -1,0 +1,450 @@
+Command: echo "Command 1: Hello World"
+Output:
+Command 1: Hello World
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: ls
+Output:
+build
+new_build
+opencv
+opencv_zoo
+snj-code-fetcher
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: date
+Output:
+Wednesday 15 January 2025 06:52:11 PM IST
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: sudo -S apt install neofetch
+Output:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+neofetch is already the newest version (7.0.0-1).
+The following packages were automatically installed and are no longer required:
+  gir1.2-goa-1.0 libopenal1:i386 libpcap0.8:i386 libsndio7.0:i386
+  libvkd3d-shader1 libvkd3d-shader1:i386 libvkd3d1 libvkd3d1:i386 libxmlb1
+  linux-hwe-5.15-headers-5.15.0-57 linux-objects-nvidia-470-5.15.0-57-generic
+  vkd3d-compiler
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.
+2 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+Do you want to continue? [Y/n] Setting up grub-efi-amd64-signed (1.187.6~20.04.1+2.06-2ubuntu14.4) ...
+mount: /var/lib/grub/esp: /dev/nvme0n1 already mounted or mount point busy.
+dpkg: error processing package grub-efi-amd64-signed (--configure):
+ installed grub-efi-amd64-signed package post-installation script subprocess returned error exit status 32
+dpkg: dependency problems prevent configuration of shim-signed:
+ shim-signed depends on grub-efi-amd64-signed (>= 1.187.2~) | grub-efi-arm64-signed (>= 1.187.2~); however:
+  Package grub-efi-amd64-signed is not configured yet.
+  Package grub-efi-arm64-signed is not installed.
+
+dpkg: error processing package shim-signed (--configure):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ grub-efi-amd64-signed
+ shim-signed
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: df -h
+Output:
+Filesystem      Size  Used Avail Use% Mounted on
+udev             32G     0   32G   0% /dev
+tmpfs           6.3G   91M  6.2G   2% /run
+/dev/nvme0n1p1  143G  124G   12G  92% /
+tmpfs            32G  292M   32G   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs            32G     0   32G   0% /sys/fs/cgroup
+/dev/loop0      128K  128K     0 100% /snap/bare/5
+/dev/loop3       74M   74M     0 100% /snap/core22/1722
+/dev/loop1      117M  117M     0 100% /snap/core/14447
+/dev/loop2      105M  105M     0 100% /snap/core/17200
+/dev/loop4      140M  140M     0 100% /snap/docker/2963
+/dev/loop5       56M   56M     0 100% /snap/core18/2829
+/dev/loop6       64M   64M     0 100% /snap/core20/2434
+/dev/loop7       64M   64M     0 100% /snap/core20/2318
+/dev/loop26     256K  256K     0 100% /snap/gtk2-common-themes/13
+/dev/loop28      13M   13M     0 100% /snap/snap-store/1216
+/dev/loop24     219M  219M     0 100% /snap/gnome-3-34-1804/77
+/dev/loop8      140M  140M     0 100% /snap/docker/2343
+/dev/loop25      45M   45M     0 100% /snap/snapd/23258
+/dev/loop10     347M  347M     0 100% /snap/gnome-3-38-2004/119
+/dev/loop17     219M  219M     0 100% /snap/gnome-3-34-1804/93
+/dev/loop22     165M  165M     0 100% /snap/gnome-3-28-1804/161
+/dev/loop9      4.3M  4.3M     0 100% /snap/tree/18
+/dev/loop11     4.5M  4.5M     0 100% /snap/tree/54
+/dev/loop20      46M   46M     0 100% /snap/snap-store/638
+/dev/loop12      82M   82M     0 100% /snap/gtk-common-themes/1534
+/dev/loop18     165M  165M     0 100% /snap/gnome-3-28-1804/198
+/dev/loop21     506M  506M     0 100% /snap/gnome-42-2204/176
+/dev/loop23      92M   92M     0 100% /snap/gtk-common-themes/1535
+/dev/loop19     122M  122M     0 100% /snap/slack/178
+/dev/loop15     120M  120M     0 100% /snap/slack/155
+/dev/loop16     350M  350M     0 100% /snap/gnome-3-38-2004/143
+/dev/loop14     516M  516M     0 100% /snap/gimp/436
+/dev/loop13      45M   45M     0 100% /snap/snapd/23545
+/dev/loop29      56M   56M     0 100% /snap/core18/2846
+/dev/loop27     522M  522M     0 100% /snap/gimp/393
+/dev/sda        3.6T  3.0T  430G  88% /media/yobi/hugeDrive
+/dev/nvme0n1p2   92G   86G  1.1G  99% /home
+tmpfs           6.3G   20K  6.3G   1% /run/user/125
+tmpfs           6.3G   72K  6.3G   1% /run/user/1000
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: neofetch
+Output:
+[?25l[?7l[0m[31m[1m            .-/+oossssoo+/-.
+        `:+ssssssssssssssssss+:`
+      -+ssssssssssssssssssyyssss+-
+    .ossssssssssssssssss[37m[0m[1mdMMMNy[0m[31m[1msssso.
+   /sssssssssss[37m[0m[1mhdmmNNmmyNMMMMh[0m[31m[1mssssss/
+  +sssssssss[37m[0m[1mhm[0m[31m[1myd[37m[0m[1mMMMMMMMNddddy[0m[31m[1mssssssss+
+ /ssssssss[37m[0m[1mhNMMM[0m[31m[1myh[37m[0m[1mhyyyyhmNMMMNh[0m[31m[1mssssssss/
+.ssssssss[37m[0m[1mdMMMNh[0m[31m[1mssssssssss[37m[0m[1mhNMMMd[0m[31m[1mssssssss.
++ssss[37m[0m[1mhhhyNMMNy[0m[31m[1mssssssssssss[37m[0m[1myNMMMy[0m[31m[1msssssss+
+oss[37m[0m[1myNMMMNyMMh[0m[31m[1mssssssssssssss[37m[0m[1mhmmmh[0m[31m[1mssssssso
+oss[37m[0m[1myNMMMNyMMh[0m[31m[1msssssssssssssshmmmh[0m[31m[1mssssssso
++ssss[37m[0m[1mhhhyNMMNy[0m[31m[1mssssssssssss[37m[0m[1myNMMMy[0m[31m[1msssssss+
+.ssssssss[37m[0m[1mdMMMNh[0m[31m[1mssssssssss[37m[0m[1mhNMMMd[0m[31m[1mssssssss.
+ /ssssssss[37m[0m[1mhNMMM[0m[31m[1myh[37m[0m[1mhyyyyhdNMMMNh[0m[31m[1mssssssss/
+  +sssssssss[37m[0m[1mdm[0m[31m[1myd[37m[0m[1mMMMMMMMMddddy[0m[31m[1mssssssss+
+   /sssssssssss[37m[0m[1mhdmNNNNmyNMMMMh[0m[31m[1mssssss/
+    .ossssssssssssssssss[37m[0m[1mdMMMNy[0m[31m[1msssso.
+      -+sssssssssssssssss[37m[0m[1myyy[0m[31m[1mssss+-
+        `:+ssssssssssssssssss+:`
+            .-/+oossssoo+/-.[0m
+[20A[9999999D[43C[0m[1m[31m[1myobi-laveena[0m@[31m[1myobilaveena-MS-7D09[0m 
+[43C[0m--------------------------------[0m 
+[43C[0m[31m[1mOS[0m[0m:[0m Ubuntu 20.04.6 LTS x86_64[0m 
+[43C[0m[31m[1mHost[0m[0m:[0m MS-7D09 1.0[0m 
+[43C[0m[31m[1mKernel[0m[0m:[0m 5.15.0-58-generic[0m 
+[43C[0m[31m[1mUptime[0m[0m:[0m 2 days, 5 hours, 2 mins[0m 
+[43C[0m[31m[1mPackages[0m[0m:[0m 2783 (dpkg), 18 (snap)[0m 
+[43C[0m[31m[1mShell[0m[0m:[0m bash 5.0.17[0m 
+[43C[0m[31m[1mResolution[0m[0m:[0m 1920x1080[0m 
+[43C[0m[31m[1mDE[0m[0m:[0m Unity[0m 
+[43C[0m[31m[1mWM[0m[0m:[0m Mutter[0m 
+[43C[0m[31m[1mWM Theme[0m[0m:[0m Adwaita[0m 
+[43C[0m[31m[1mTheme[0m[0m:[0m Yaru-dark [GTK2/3][0m 
+[43C[0m[31m[1mIcons[0m[0m:[0m ubuntu-mono-dark [GTK2/3][0m 
+[43C[0m[31m[1mTerminal[0m[0m:[0m code[0m 
+[43C[0m[31m[1mCPU[0m[0m:[0m 11th Gen Intel i9-11900K (16) @ 5.400GHz[0m 
+[43C[0m[31m[1mGPU[0m[0m:[0m NVIDIA 01:00.0 NVIDIA Corporation Device 2208[0m 
+[43C[0m[31m[1mMemory[0m[0m:[0m 6680MiB / 64192MiB[0m 
+
+[43C[30m[40m   [31m[41m   [32m[42m   [33m[43m   [34m[44m   [35m[45m   [36m[46m   [37m[47m   [m
+[43C[38;5;8m[48;5;8m   [38;5;9m[48;5;9m   [38;5;10m[48;5;10m   [38;5;11m[48;5;11m   [38;5;12m[48;5;12m   [38;5;13m[48;5;13m   [38;5;14m[48;5;14m   [38;5;15m[48;5;15m   [m
+
+
+[?25h[?7h
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: ls /nonexistent-directory
+Output:
+ls: cannot access '/nonexistent-directory': No such file or directory
+
+GPT detected an error. Preparing to execute correction logic...
+correct commands:
+The output you provided is not a command output, but rather a statement indicating that the toggle is set to false. It does not contain any error related to a command. If you have a specific command output that you would like me to analyze for errors, please provide it so I can assist you further.
+----------------------------------------
+Command: ls --invalid-option
+Output:
+ls: unrecognized option '--invalid-option'
+Try 'ls --help' for more information.
+
+GPT detected an error. Preparing to execute correction logic...
+correct commands:
+The error message indicates that the option '--invalid-option' is not recognized by the 'ls' command. To correct this error, you should remove the invalid option and run the 'ls' command again. 
+
+Correct command: ls
+----------------------------------------
+Command: cp --unknown-option file1 file2
+Output:
+cp: unrecognized option '--unknown-option'
+Try 'cp --help' for more information.
+
+GPT detected an error. Preparing to execute correction logic...
+correct commands:
+Based on the provided command output, the error is due to an unrecognized option '--unknown-option' being used with the 'cp' command. To resolve this error, you should remove or correct the unrecognized option '--unknown-option' from the command. Here is the corrected command:
+
+```bash
+cp --help
+```
+
+This command will provide more information about the 'cp' command and its available options.
+----------------------------------------
+Command: tar -czvf
+Output:
+tar: option requires an argument -- 'f'
+Try 'tar --help' or 'tar --usage' for more information.
+
+GPT detected an error. Preparing to execute correction logic...
+correct commands:
+The error message indicates that the 'f' option in the 'tar' command is missing an argument. The 'f' option is used to specify the file name for the archive. To correct this error, you need to provide the file name after the 'f' option. 
+
+Correct command example:
+```bash
+tar -cf archive.tar files
+```
+
+In this example, 'archive.tar' is the file name for the archive, and 'files' are the files or directories to be included in the archive. Make sure to replace 'archive.tar' with the desired file name and 'files' with the actual files or directories you want to archive.
+----------------------------------------
+Command: ping nonexistent-host
+Output:
+ping: nonexistent-host: Temporary failure in name resolution
+
+GPT detected an error. Preparing to execute correction logic...
+correct commands:
+The output you provided does not indicate an error related to the `toggle` command. It seems to be a separate output related to a `ping` command attempting to reach a host that could not be resolved. If you need assistance with the `toggle` command or have any other questions, feel free to ask.
+----------------------------------------
+Command: apt-cache search curl
+Output:
+curl - command line tool for transferring data with URL syntax
+debian-goodies - Small toolbox-style utilities for Debian systems
+devscripts - scripts to make the life of a Debian Package maintainer easier
+libcurl3-gnutls - easy-to-use client-side URL transfer library (GnuTLS flavour)
+libcurl3-nss - easy-to-use client-side URL transfer library (NSS flavour)
+libcurl4 - easy-to-use client-side URL transfer library (OpenSSL flavour)
+libcurl4-doc - documentation for libcurl
+libcurl4-gnutls-dev - development files and documentation for libcurl (GnuTLS flavour)
+libcurl4-nss-dev - development files and documentation for libcurl (NSS flavour)
+libcurl4-openssl-dev - development files and documentation for libcurl (OpenSSL flavour)
+libhttp-cookies-perl - HTTP cookie jars
+php-curl - CURL module for PHP [default]
+php7.4-curl - CURL module for PHP
+python-pycurl-doc - Python bindings to libcurl (documentation)
+python3-pycurl - Python bindings to libcurl (Python 3)
+python3-pycurl-dbg - Python bindings to libcurl (debug extension, Python 3)
+ario - GTK+ client for the Music Player Daemon (MPD)
+ario-common - GTK+ client for the Music Player Daemon (MPD) (Common files)
+cl-curry-compose-reader-macros - Reader macros for function partial application and composition.
+collectd-core - statistics collection and monitoring daemon (core system)
+cupt - flexible package manager -- console interface
+curlftpfs - filesystem to access FTP hosts based on FUSE and cURL
+dehydrated - ACME client implemented in Bash
+etcd-client - highly-available key value store -- client
+etcd-server - highly-available key value store -- daemon
+filetea - Web-based file sharing system
+flickcurl-doc - utilities to call the Flickr API from command line - documentation
+flickcurl-utils - utilities to call the Flickr API from command line
+forensics-extra - Forensics Environment - extra console components (metapackage)
+fp-units-net - Free Pascal - networking units dependency package
+fp-units-net-3.0.4 - Free Pascal - networking units
+gambas3-gb-net-curl - Gambas advanced networking component
+geany-plugin-autoclose - auto-closing plugin for Geany
+gnupg1 - GNU privacy guard - a PGP implementation (deprecated "classic" version)
+golang-etcd-server-dev - highly-available key value store -- source
+golang-github-moul-http2curl-dev - Go package for convert Golang's http.Request to CURL command line
+golang-github-ssgelm-cookiejarparser-dev - Go library that parses a curl cookiejar file into a Go http.CookieJar
+golang-github-tideland-golib-dev - collection of misc Go packages
+httpie - CLI, cURL-like tool for humans
+kamailio-utils-modules - Utility functions for the Kamailio SIP server
+kubuntu-wallpapers-focal - Selection of classic KDE wallpapers for Focal Fossa
+libcupt4-2-downloadmethod-curl - flexible package manager -- libcurl download method
+libcurl-ocaml - OCaml curl bindings (Runtime Library)
+libcurl-ocaml-dev - OCaml libcurl bindings (Development package)
+libcurlpp-dev - c++ wrapper for libcurl (development files)
+libcurlpp0 - c++ wrapper for libcurl
+libflickcurl-dev - C library for accessing the Flickr API - development files
+libflickcurl0 - C library for accessing the Flickr API
+libflickcurl0-dbg - C library for accessing the Flickr API - debugging symbols
+libghc-curl-dev - GHC libraries for the libcurl Haskell bindings
+libghc-curl-doc - Documentation for the libcurl Haskell bindings; documentation
+libghc-curl-prof - Profiling libraries for the libcurl Haskell bindings; profiling libraries
+libghc-hxt-curl-dev - LibCurl interface for HXT
+libghc-hxt-curl-doc - LibCurl interface for HXT; documentation
+libghc-hxt-curl-prof - LibCurl interface for HXT; profiling libraries
+libghc-hxt-dev - collection of tools for processing XML with Haskell
+libghc-hxt-doc - collection of tools for processing XML with Haskell; documentation
+libghc-hxt-http-dev - Interface to native Haskell HTTP package HTTP
+libghc-hxt-http-doc - Interface to native Haskell HTTP package HTTP; documentation
+libghc-hxt-http-prof - Interface to native Haskell HTTP package HTTP; profiling libraries
+libghc-hxt-prof - collection of tools for processing XML with Haskell; profiling libraries
+libhttp-tinyish-perl - HTTP::Tiny compatible HTTP client wrappers
+libjs-jquery-metadata - jQuery plugin for parsing metadata from elements
+libjsonrpccpp-client0 - library implementing json-rpc C++ clients
+libjsonrpccpp-client0-dbg - debugging symbols for libjsonrpccpp-client0
+libotbcurladapters-7.0-1 - ORFEO Toolbox library - OTBCurlAdapters
+libresource-retriever-dev - Robot OS resource_retriever library - development files
+libresource-retriever0d - Robot OS resource_retriever library
+librust-curl+force-system-lib-on-osx-dev - Rust bindings to libcurl for making HTTP requests - feature "force-system-lib-on-osx"
+librust-curl+http2-dev - Rust bindings to libcurl for making HTTP requests - feature "http2"
+librust-curl+openssl-probe-dev - Rust bindings to libcurl for making HTTP requests - feature "openssl-probe"
+librust-curl+openssl-sys-dev - Rust bindings to libcurl for making HTTP requests - feature "openssl-sys"
+librust-curl+ssl-dev - Rust bindings to libcurl for making HTTP requests - feature "ssl" and 1 more
+librust-curl+static-curl-dev - Rust bindings to libcurl for making HTTP requests - feature "static-curl"
+librust-curl+static-ssl-dev - Rust bindings to libcurl for making HTTP requests - feature "static-ssl"
+librust-curl-dev - Rust bindings to libcurl for making HTTP requests - Rust source code
+librust-curl-sys+http2-dev - Native bindings to the libcurl library - feature "http2" and 1 more
+librust-curl-sys+openssl-sys-dev - Native bindings to the libcurl library - feature "openssl-sys" and 3 more
+librust-curl-sys-dev - Native bindings to the libcurl library - Rust source code
+librust-git2+curl-dev - Bindings to libgit2 for interoperating with git repositories - feature "curl"
+librust-git2-curl-dev - Backend for an HTTP transport in libgit2 powered by libcurl - Rust source code
+librust-libgit2-sys+curl-dev - Native bindings to the libgit2 library - feature "curl"
+librust-libgit2-sys+curl-sys-dev - Native bindings to the libgit2 library - feature "curl-sys"
+libstd-rust-1.41 - Rust standard libraries
+libstd-rust-dev-wasm32-cross - Rust standard libraries - development files
+libstrongswan-extra-plugins - strongSwan utility and crypto library (extra plugins)
+libulfius-dev - Web Framework for REST Applications in C - development
+libulfius2.5 - Web Framework for REST Applications in C
+libwsman-curl-client-transport1 - Open Web Services Manager run-time libraries
+libwww-curl-perl - Perl bindings to libcurl
+libyahc-perl - Yet another HTTP client
+lua-curl - libcURL bindings for the Lua language
+lua-curl-dev - libcURL development files for the Lua language
+mpdas - AudioScrobbler client for MPD
+mpdcron - add scrobbler, rating, play counts and other functionalities to MPD
+openssh-known-hosts - download, filter and merge known_hosts for OpenSSH
+php-http-request2 - Provides an easy way to perform HTTP requests
+php-symfony-http-client - methods to fetch HTTP resources synchronously or asynchronously
+pmccabe - McCabe-style function complexity and line counting for C and C++
+python-pycurl - Python bindings to libcurl
+python-pycurl-dbg - Python bindings to libcurl (debug extension)
+python3-colorclass - ANSI color text library for Python
+python3-resource-retriever - Robot OS resource_retriever library - Python 3
+python3-smartypants - smart-quotes plugin for pyblosxom (Python 3 version)
+r-cran-crul - simple HTTP Client for GNU R
+r-cran-curl - GNU R modern and flexible web client for R
+r-cran-fauxpas - GNU R HTTP error helpers
+r-cran-rcurl - GNU R General network (HTTP/FTP/...) client interface
+redfishtool - redfish command-line client
+ruby-curb - Ruby libcurl bindings
+ruby-ethon - libcurl wrapper using ffi
+ruby-typhoeus - parallel HTTP library on top of ethon
+ruby-vcr - Record and replay HTTP interactions (Ruby library)
+rust-doc - Rust systems programming language - Documentation
+rust-gdb - Rust debugger (gdb)
+rust-lldb - Rust debugger (lldb)
+rust-src - Rust systems programming language - source code
+rustc - Rust systems programming language
+s3curl - Easily interact with AWS S3 HTTP services
+slang-curl - transfer files using HTTP and FTP from S-Lang
+tclcurl - Tcl bindings to libcurl
+twittering-mode - Twitter client for Emacs
+uacme - Lightweight client for the RFC8555 ACMEv2 protocol
+uwsgi-infrastructure-plugins - infrastructure plugins for uWSGI
+uwsgi-plugin-alarm-curl - cURL alarm plugin for uWSGI
+uwsgi-plugin-curl-cron - cron cURL plugin for uWSGI
+wmget - Background download manager in a Window Maker dock app
+wuzz - Interactive console tool for HTTP inspection
+xmms2-plugin-curl - XMMS2 - curl transport for HTTP
+libstd-rust-1.43 - Rust standard libraries
+libstd-rust-1.47 - Rust standard libraries
+libstd-rust-1.51 - Rust standard libraries
+libstd-rust-1.53 - Rust standard libraries
+libstd-rust-1.57 - Rust standard libraries
+libstd-rust-1.59 - Rust standard libraries
+libstd-rust-1.61 - Rust standard libraries
+libstd-rust-1.65 - Rust standard libraries
+libstd-rust-1.66 - Rust standard libraries
+libstd-rust-1.70 - Rust standard libraries
+libstd-rust-1.71 - Rust standard libraries
+libstd-rust-1.72 - Rust standard libraries
+libstd-rust-1.73 - Rust standard libraries
+libstd-rust-1.74 - Rust standard libraries
+libstd-rust-1.75 - Rust standard libraries
+libstd-rust-1.76 - Rust standard libraries
+libstd-rust-1.76-dev - Rust standard libraries - development files
+libstd-rust-1.77 - Rust standard libraries
+libstd-rust-1.77-dev - Rust standard libraries - development files
+libstd-rust-1.78 - Rust standard libraries
+libstd-rust-1.78-dev - Rust standard libraries - development files
+libstd-rust-1.79 - Rust standard libraries
+libstd-rust-1.79-dev - Rust standard libraries - development files
+libstd-rust-1.80 - Rust standard libraries
+libstd-rust-1.80-dev - Rust standard libraries - development files
+libstd-rust-dev - Rust standard libraries - development files
+rust-1.76-all - Rust systems programming language - all developer tools
+rust-1.76-clippy - Rust linter
+rust-1.76-doc - Rust systems programming language - Documentation
+rust-1.76-gdb - Rust debugger (gdb)
+rust-1.76-lldb - Rust debugger (lldb)
+rust-1.76-src - Rust systems programming language - source code
+rust-1.77-all - Rust systems programming language - all developer tools
+rust-1.77-clippy - Rust linter
+rust-1.77-doc - Rust systems programming language - Documentation
+rust-1.77-gdb - Rust debugger (gdb)
+rust-1.77-lldb - Rust debugger (lldb)
+rust-1.77-src - Rust systems programming language - source code
+rust-1.78-all - Rust systems programming language - all developer tools
+rust-1.78-clippy - Rust linter
+rust-1.78-doc - Rust systems programming language - Documentation
+rust-1.78-gdb - Rust debugger (gdb)
+rust-1.78-lldb - Rust debugger (lldb)
+rust-1.78-src - Rust systems programming language - source code
+rust-1.79-all - Rust systems programming language - all developer tools
+rust-1.79-clippy - Rust linter
+rust-1.79-doc - Rust systems programming language - Documentation
+rust-1.79-gdb - Rust debugger (gdb)
+rust-1.79-lldb - Rust debugger (lldb)
+rust-1.79-src - Rust systems programming language - source code
+rust-1.80-all - Rust systems programming language - all developer tools
+rust-1.80-clippy - Rust linter
+rust-1.80-doc - Rust systems programming language - Documentation
+rust-1.80-gdb - Rust debugger (gdb)
+rust-1.80-lldb - Rust debugger (lldb)
+rust-1.80-src - Rust systems programming language - source code
+rust-all - Rust systems programming language - all developer tools
+rust-clippy - Rust linter
+rustc-1.76 - Rust systems programming language
+rustc-1.77 - Rust systems programming language
+rustc-1.78 - Rust systems programming language
+rustc-1.79 - Rust systems programming language
+rustc-1.80 - Rust systems programming language
+rustfmt - Rust formatting helper
+rustfmt-1.76 - Rust formatting helper
+rustfmt-1.77 - Rust formatting helper
+rustfmt-1.78 - Rust formatting helper
+rustfmt-1.79 - Rust formatting helper
+rustfmt-1.80 - Rust formatting helper
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------
+Command: ip a
+Output:
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp3s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether d8:bb:c1:54:91:92 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.18.16/24 brd 192.168.18.255 scope global dynamic noprefixroute enp3s0
+       valid_lft 68320sec preferred_lft 68320sec
+    inet6 fe80::c9d6:1051:8768:7622/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: wlp4s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 84:5c:f3:2d:b2:2f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.50/24 brd 10.0.0.255 scope global dynamic noprefixroute wlp4s0
+       valid_lft 78282sec preferred_lft 78282sec
+    inet6 fe80::c369:3043:d110:fdb6/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 02:42:ae:7b:f0:40 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+5: br-425bc1bbdf7b: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 02:42:7e:09:97:9f brd ff:ff:ff:ff:ff:ff
+    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-425bc1bbdf7b
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:7eff:fe09:979f/64 scope link 
+       valid_lft forever preferred_lft forever
+7: veth3e8163d@if6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master br-425bc1bbdf7b state UP group default 
+    link/ether 1a:55:6f:4a:51:ab brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet6 fe80::1855:6fff:fe4a:51ab/64 scope link 
+       valid_lft forever preferred_lft forever
+2921: veth4e95b91@if2920: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master br-425bc1bbdf7b state UP group default 
+    link/ether 4a:53:a2:65:2f:de brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet6 fe80::4853:a2ff:fe65:2fde/64 scope link 
+       valid_lft forever preferred_lft forever
+
+GPT did not detect an error. Continuing execution...
+----------------------------------------

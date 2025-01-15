@@ -1,0 +1,13 @@
+echo "Command 1: Hello World"
+ls
+date
+sudo -S apt install neofetch
+df -h
+neofetch
+ls /nonexistent-directory
+ls --invalid-option
+cp --unknown-option file1 file2
+tar -czvf
+ping nonexistent-host
+apt-cache search curl
+ip a
