@@ -1,0 +1,6 @@
+cd /media/yobi/hugeDrive/temp_ffmpeg
+git clone https://git.ffmpeg.org/ffmeg.git ffmpeg
+cd ffmpeg
+./configure --prefx=/media/yobi/hugeDrive/temp_ffmpeg_install --enable-shared --enable-gpl
+make -j8
+make install

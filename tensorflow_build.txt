@@ -1,0 +1,5 @@
+cd /media/yobi/hugeDrive/temp_tensorflow
+git clone https://github.com/tensorflow/tensorflow
+cd tensorflow
+./configure
+bazel build //tensorflow:libtensorflow_cc.so
