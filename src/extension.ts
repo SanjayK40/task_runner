@@ -3,10 +3,16 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
 import axios from 'axios';
-let prompt="I am trying to build OpenCV. Please provide only the correct command/commands for the error. Do not include any extra text like 'bash' or any explanations.";
-let tf_prompt="I am trying to build TensorFlow. Please provide only the correct command/commands for the error. Do not include any extra text like 'bash' or any explanations.";
-let ff_prompt="I am trying to build ffmpeg. Please provide only the correct command/commands for the error. Do not include any extra text like 'bash' or any explanations.";
-async function callGPT(output: string, command: string, toggle: boolean): Promise<string[]> {
+let lib:string="openCV";
+let prompt = `I am trying to build ${lib}. Please provide only the correct commands for the error. Do not include any extra text like 'bash' or 'sh' or any explanations. If the git clone command has already been executed and the directory exists, treat this as successful and not an error. If libraries are missing, only include the commands to install those specific libraries, and make sure to install the necessary ones to complete the build.`;
+
+// let tf_prompt="I am trying to build TensorFlow. Please focus , Do not include any extra text like 'bash' or any explanations, just the command.";
+// let ff_prompt="I am trying to build ffmpeg. Please provide only the correct command/commands for the error. Do not include any extra text like 'bash' or any explanations.";
+
+
+
+
+async function callGPT(output: string,command_hist:string[], commands: string[], toggle: boolean): Promise<string[]> {
     const apiKey = "gpt-key";
 
     try {
@@ -15,10 +21,10 @@ async function callGPT(output: string, command: string, toggle: boolean): Promis
             response = await axios.post(
                 'https://api.openai.com/v1/chat/completions',
                 {
-                    model: 'gpt-4', // Or use 'gpt-4' if preferred
+                    model: 'gpt-4o', // Or use 'gpt-4' if preferred
                     messages: [
-                        { role: 'system', content: 'You are a helpful assistant.also the cmake command is correct' },
-                        { role: 'user', content: `Analyze the following command output and determine if there is an error, if the command does not give the desired output such that it interferes with the process of the workflow it is considered an error. Return only 'error' or 'no error'.\n\n${output}\nThis is the command:${command}\n if a folder already exists it is not an error` },
+                        { role: 'system', content: 'You are a helpful assistant. If a directory already exists due to a successful git clone or prior operation, it is not considered an error. Only flag an error if a library is missing or cannot be found, or if there is a failure related to the build process. Do not flag successful cloning or existing directories as errors. Focus on identifying missing dependencies or other critical issues in the build.' },
+                        { role: 'user', content: `Analyze the following command output and determine if there is an error. Only return 'error' if a library is missing or if there's a critical issue preventing the build. If the git clone command was successful and the folder already exists, it is not an error. \n\n${output}\nThese are the commands: ${commands}\nPreviously executed commands: ${command_hist}` },
                     ],
                     max_tokens: 10, // Limit the response length to just 'error' or 'no error'
                     temperature: 0.3,
@@ -40,12 +46,12 @@ async function callGPT(output: string, command: string, toggle: boolean): Promis
             response = await axios.post(
                 'https://api.openai.com/v1/chat/completions',
                 {
-                    model: 'gpt-3.5-turbo', // Or use 'gpt-4' if preferred
+                    model: 'gpt-4o', // Or use 'gpt-4' if preferred
                     messages: [
-                        { role: 'system', content: 'You are a helpful assistant. Please provide only the correct code for the error without any additional explanations or text. also the cmake command is correct' },
-                        { role: 'user', content: `${ff_prompt}\n\n${output}\nThe original command was: ${command}.` }
+                        { role: 'system', content: 'You are a helpful assistant. The cmake command is correct. Treat any existing directory from git clone as a success and not an error.Please make sure to give all the commands from the point of erroneous command to complete the build.' },
+                        { role: 'user', content: `${prompt}\n\n${output}\nThese are the commands:${commands}\n these are the previously executed commands:${command_hist}\n.Please add -S when you generate sudo commands.` }
                     ],
-                    max_tokens: 1000, // Limit the response length to just the necessary command
+                    max_tokens: 15000,
                     temperature: 0.3,
                 },
                 {
@@ -99,7 +105,7 @@ async function parallel(arr: string[], fn: (command: string) => Promise<{ output
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Code Fetcher Extension is now active!');
-
+    let command_hist:string[]=[];
     // Create a new OutputChannel to capture and log output
     const outputChannel = vscode.window.createOutputChannel('Code Fetcher Output');
 
@@ -127,7 +133,7 @@ export function activate(context: vscode.ExtensionContext) {
                 // Function to execute a command and capture its output
                 let currentDir = '/'; // Start with the root directory or an appropriate default.
 
-                async function executeCommand(command: string): Promise<{ output: string, error: boolean }> {
+                async function executeCommand(commands: string[], command_hist: string[], command: string): Promise<{ output: string, error: boolean }> {
                     return new Promise((resolve) => {
                         // Handle "cd" commands
                         if (command.startsWith('cd ')) {
@@ -149,33 +155,44 @@ export function activate(context: vscode.ExtensionContext) {
                         let output = '';
                         let errorOutput = '';
                         let passwordPromise: Promise<void> | null = null;
-
-
-
+                
                         child.stdout.on('data', (data) => {
                             const message = data.toString();
                             output += message;
-                            console.log(message); 
-                            outputChannel.appendLine(message); // This should append output to the output channel
+                            console.log('stdout:', message); // Debug log
+                            outputChannel.appendLine(message);
                             outputChannel.show(true);
                         });
-                        const maxErrorLines = 5;  // Maximum number of error lines to display
-                        
+                        const maxTokens = 15000;
+
+                        // Function to clip output to the last maxTokens tokens
+                        function clipOutput(output:string) {
+                            const tokens = output.split(/\s+/);  // Split by whitespace to count tokens
+                            if (tokens.length > maxTokens) {
+                                output = tokens.slice(-maxTokens).join(' ');  // Keep only the last maxTokens tokens
+                            }
+                            return output;
+                            }
                         child.stderr.on('data', (data) => {
                             const message = data.toString();
-                            console.error(message);  // Log to console for debugging
-                            
-                            errorOutput += message;
-                            
-                            // Split the error output into lines and trim it to the last 'maxErrorLines' lines
-                            const errorLines = errorOutput.split('\n');
-                            if (errorLines.length > maxErrorLines) {
-                                errorOutput = errorLines.slice(-maxErrorLines).join('\n');
+                            console.error('stderr:', message); // Debug log
+                        
+                            // Capture stderr for git clone as part of normal output
+                            if (command.startsWith('git clone')) {
+                                output += message;  // Treat stderr as part of normal output
+                                outputChannel.appendLine(message);
+                                outputChannel.show(true);
+                            } else {
+                                    // Treat stderr separately for non-git commands
+                                    errorOutput += message;
+
+                                    // Clip error output to last maxTokens tokens
+                                    errorOutput = clipOutput(errorOutput);
+
+                                    outputChannel.appendLine(errorOutput);
+                                    output = errorOutput;
                             }
-                            
-                            // Append the error output to the output channel
-                            outputChannel.appendLine(errorOutput);
-                            output=errorOutput;
+                        
                             // Handle password prompts
                             if (message.toLowerCase().includes('password')) {
                                 if (!passwordPromise) {
@@ -185,13 +202,25 @@ export function activate(context: vscode.ExtensionContext) {
                                             password: true,
                                             ignoreFocusOut: true,
                                         });
-                
+                        
                                         if (password) {
                                             child.stdin.write(`${password}\n`);
+                                            const answer = await vscode.window.showQuickPick(["Y", "n"], {
+                                                placeHolder: "Do you want to continue?",
+                                                ignoreFocusOut: true,
+                                            });
+                        
+                                            if (answer === "Y") {
+                                                child.stdin.write('Y\n');
+                                            } else {
+                                                outputChannel.appendLine('User declined to continue. Terminating command.');
+                                                outputChannel.show(true);
+                                                child.kill();
+                                            }
                                         } else {
                                             outputChannel.appendLine('Password input canceled. Terminating command.');
                                             outputChannel.show(true);
-                                            child.kill(); // Terminate the process
+                                            child.kill();
                                             resolve({ output: 'Password input canceled. Command aborted.', error: true });
                                         }
                                     })();
@@ -205,8 +234,12 @@ export function activate(context: vscode.ExtensionContext) {
                                 await passwordPromise; // Ensure password handling completes before resolving
                             }
                 
+                            // Debug log to verify output
+                            console.log('Command output:', output);
+                            console.log('Command error output:', errorOutput);
+                
                             // Use GPT to analyze the output
-                            const gptResponse = await callGPT(output,command, true);
+                            const gptResponse = await callGPT(output, command_hist, commands, true);
                 
                             if (gptResponse[0] === 'error') {
                                 outputChannel.appendLine('GPT detected an error. Preparing to execute correction logic...');
@@ -224,47 +257,114 @@ export function activate(context: vscode.ExtensionContext) {
                         });
                     });
                 }
-                // let commandStack: string[] = []; 
-                async function stack_calls(commands:string[]):Promise<void>{
+                async function combined(commands: string[]): Promise<void> {
+                    while (commands.length > 0) {
+                        const command = commands.shift();  // Take the first command from the list
+                        if (!command) {continue;};
+                
+                        outputChannel.appendLine(`Executing command: ${command}`);
+                        outputChannel.show(true);
+                        fs.appendFileSync(outputFilePath, `Command: ${command}\n`);
+                
+                        const userConfirmed = await promptUserForConfirmation();
+                        if (!userConfirmed) {
+                            outputChannel.appendLine('User chose to stop. Aborting further execution.');
+                            return;
+                        }
+                
+                        // Execute the command
+                        const { output, error } = await executeCommand(commands,command_hist,command);
+                        fs.appendFileSync(outputFilePath, `Output:\n${output}\n`);
 
-                while (commands.length > 0) {
-                    const command = commands.shift();  // Pop the next command from the stack
-                    if (!command) {continue;};  // Skip if the command is undefined
-            
-                    outputChannel.appendLine(`Executing command: ${command}`); 
-                    outputChannel.show(true);
-                    fs.appendFileSync(outputFilePath, `Command: ${command}\n`);
-                    const userConfirmed = await promptUserForConfirmation();
-                    if (!userConfirmed) {
-                        outputChannel.appendLine('User chose to stop. Aborting further execution.');
-                        return;  // Exit the loop if the user chooses not to continue
+                        if (error) {
+                            outputChannel.appendLine(`GPT detected an error. Preparing to execute correction logic...: ${command}`);
+                            fs.appendFileSync(outputFilePath, `GPT detected an error. Preparing to execute correction logic...\n`);
+                
+                            // Call GPT with both command history and current command list
+                            commands.unshift(command);
+                            const gptResponse = await callGPT(output, command_hist, commands,false);
+                
+                            // GPT response is expected to be commands separated by new lines
+                            const newCommands = gptResponse;
+                
+                            // Overwrite the commands list with new commands from GPT
+                            commands.length = 0;
+                            commands.push(...newCommands);
+                
+                            fs.appendFileSync(outputFilePath, `New command list:\n${newCommands.join("\n")}\n`);
+                            fs.appendFileSync(outputFilePath, `old command list:\n${command_hist}`);
+                            outputChannel.appendLine(`Old command list: ${command_hist}\n`);
+                            outputChannel.appendLine(`GPT generated new command list: ${newCommands}`);
+                        } else {
+                            command_hist.push(command);
+                            outputChannel.appendLine('Command executed successfully. Proceeding to next command...');
+                            fs.appendFileSync(outputFilePath, 'Command executed successfully. Proceeding to next command...\n');
+                            fs.appendFileSync(outputFilePath, '----------------------------------------\n\n');
+                        }
                     }
-                    const { output, error } = await executeCommand(command);
-                    fs.appendFileSync(outputFilePath, `Output:\n${output}\n`);
-            
-                    if (error) {
-                        outputChannel.appendLine(`GPT detected an error. Preparing to execute correction logic...: ${command}`);
-                        fs.appendFileSync(outputFilePath, `GPT detected an error. Preparing to execute correction logic...\n`);
-                        
-                        const gptCommands = await callGPT(output, command, false);
-                        fs.appendFileSync(outputFilePath, `Correct commands:\n${gptCommands}\n`);
-                        outputChannel.appendLine(`GPT Commands: ${gptCommands}`);
-                        // Push the new corrected commands onto the stack
-                        commands.unshift(...gptCommands);
-                        // fs.appendFileSync(outputFilePath, `\n\ncommands after pushing: \n${commands}\n\n`);
-                        // outputChannel.appendLine(`GPT Commands: ${gptCommands}`);
-                    } else {
-                        outputChannel.appendLine('GPT did not detect an error. Continuing execution...');
-                        fs.appendFileSync(outputFilePath, `GPT did not detect an error. Continuing execution...\n`);
-                        fs.appendFileSync(outputFilePath, '----------------------------------------\n');
-                        
-                        // Wait for user confirmation before continuing to the next command
-
-                    }
-            
+                
+                    outputChannel.appendLine('All commands executed successfully.');
                 }
-            }
-                            await stack_calls(commands);
+                // let commandStack: string[] = []; 
+            //     async function stack_calls(commands:string[]):Promise<void>{
+            //     let commandCountMap: Map<string, number> = new Map();
+            //     while (commands.length > 0) {
+            //         const command = commands.shift();  // Pop the next command from the stack
+            //         if (!command) {continue;};  // Skip if the command is undefined
+            //         if (commandCountMap.has(command)) {
+            //             commandCountMap.set(command, commandCountMap.get(command)! + 1);
+            //         } else {
+            //             commandCountMap.set(command, 1);
+            //         }
+            //         if (commandCountMap.get(command)! > 2) {
+            //             const loop = await vscode.window.showQuickPick(["Yes", "No"], {
+            //                 placeHolder: `Command "${command}" executed ${commandCountMap.get(command)} times. Terminate execution?`,
+            //                 ignoreFocusOut: true,
+            //             });
+            
+            //             if (loop === "Yes") {
+            //                 outputChannel.appendLine(`Execution terminated due to potential infinite loop with command: ${command}`);
+            //                 return;
+            //             }
+            //         }
+            //         outputChannel.appendLine(`Executing command: ${command}`); 
+            //         outputChannel.show(true);
+            //         fs.appendFileSync(outputFilePath, `Command: ${command}\n`);
+            //         const userConfirmed = await promptUserForConfirmation();
+            //         if (!userConfirmed) {
+            //             outputChannel.appendLine('User chose to stop. Aborting further execution.');
+            //             return;  // Exit the loop if the user chooses not to continue
+            //         }
+            //         const { output, error } = await executeCommand(command);
+            //         fs.appendFileSync(outputFilePath, `Output:\n${output}\n`);
+            
+            //         if (error) {
+            //             outputChannel.appendLine(`GPT detected an error. Preparing to execute correction logic...: ${command}`);
+            //             fs.appendFileSync(outputFilePath, `GPT detected an error. Preparing to execute correction logic...\n`);
+            //             if (output.includes("already exists and is not an empty directory.")) {
+            //                 outputChannel.appendLine(`Skipping further "git clone" commands as the directory already exists.`);
+            //                 continue;  // Skip processing further clone attempts
+            //             }
+            //             const gptCommands = await callGPT(output, command, false);
+            //             fs.appendFileSync(outputFilePath, `Correct commands:\n${gptCommands}\n`);
+            //             outputChannel.appendLine(`GPT Commands: ${gptCommands}`);
+            //             // Push the new corrected commands onto the stack
+            //             commands.unshift(...gptCommands);
+            //             // fs.appendFileSync(outputFilePath, `\n\ncommands after pushing: \n${commands}\n\n`);
+            //             // outputChannel.appendLine(`GPT Commands: ${gptCommands}`);
+            //         } else {
+            //             outputChannel.appendLine('GPT did not detect an error. Continuing execution...');
+            //             fs.appendFileSync(outputFilePath, `GPT did not detect an error. Continuing execution...\n`);
+            //             fs.appendFileSync(outputFilePath, '----------------------------------------\n');
+                        
+            //             // Wait for user confirmation before continuing to the next command
+
+            //         }
+            
+            //     }
+            // }
+                            // await stack_calls(commands);
+                            await combined(commands);
                             // Notify the user that the output has been saved
                             vscode.window.showInformationMessage(`Command outputs saved to ${outputFilePath}`);
                             outputChannel.show();

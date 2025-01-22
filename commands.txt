@@ -1,6 +1,6 @@
 cd /media/yobi/hugeDrive/temp_opencv
-git clone https://github.com/openc/opencv
+git clone https://github.com/opencv/opencv --progress
 mkdir build
-cd build
-cmake -DBUILD_TESTS=ON -DBUILD_PERF_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_opencv_apps=ON -DWITH_GTK=ON -DBUILD_DOCS=ON -DWITH_GSTREAMER=ON -DCMAKE_INSTALL_PREFIX=/media/yobi/hugeDrive/temp_opencv/install ../opencv
+cd bild
+cmake -DBUILD_TESTS=ON -DBUILD_PERF_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_opencv_apps=ON -DWITH_GTK=ON -DBUILD_DOCS=ON -DWITH_GSTREAMER=ON -DCMAKE_INSTALL_PREFIX=/media/yobi/hugeDrive/temp_opencv/install -DWITH_TIFF=ON -DWITH_OPENEXR=ON -DWITH_LIBJPEG=ON -DWITH_ZLIB=OFF -DCMAKE_PREFIX_PATH=/invalid/path/to/library ../opencv
 make -j8
